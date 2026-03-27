@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Dettaglio Viaggio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>✈️ Travel Planner</h1>
+
+  <button onclick="goBack()">← Torna alla lista</button>
+
+  <h2 id="titoloViaggio">Nome viaggio</h2>
+
+  <!-- FORM AGGIUNTA LUOGO -->
+  <div>
+    <input type="text" id="nomeLuogo" placeholder="Nome luogo">
+    <input type="text" id="noteLuogo" placeholder="Note (opzionale)">
+    <button onclick="aggiungiLuogo()">Aggiungi Luogo</button>
+  </div>
+
+  <!-- LISTA LUOGHI -->
+  <h3>Luoghi del viaggio</h3>
+  <div id="listaLuoghi"></div>
+
+  <script src="dettaglio.js"></script>
+
+</body>
+</html>

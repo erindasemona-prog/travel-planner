@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+  <title>Travel Planner</title>
+</head>
+<body>
+
+<div class="container">
+
+<h1>✈️ Travel Planner</h1>
+
+<form id="trip-form" onsubmit="event.preventDefault(); addTrip()">
+<input id="title" placeholder="Titolo viaggio">
+<input id="location" placeholder="Città">
+<input id="date" type="date">
+<button class="add-btn" type="submit">aggiungi</button>
+</form>
+
+<h2>📋 Lista viaggi</h2>
+<ul id="list"></ul>
+
+</div>
+
+<script>
+async function loadTrips() {
+  const res = await fetch("http://localhost:3000/trips");
+  const data = await res.json();
+
+  const list = document.getElementById("list");
+  list.innerHTML = "";
+
+  data.forEach(trip => {
+    const li = document.createElement("li");
+    const titleParam = encodeURIComponent(trip.title);
+    const cityParam = encodeURIComponent(trip.location);
+    li.innerHTML = `<a href="dettaglio.html?tripId=${trip.id}&title=${titleParam}&citta=${cityParam}">${trip.title}</a> - ${trip.location}`;
+    list.appendChild(li);
+  });
+}
+
+async function addTrip() {
+  const title = document.getElementById("title").value;
+  const location = document.getElementById("location").value;
+  const date = document.getElementById("date").value;
+
+  await fetch("http://localhost:3000/trips", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ title, location, date })
+  });
+
+  loadTrips();
+}
+
+loadTrips();
+</script>
+
+</body>
+</html>
